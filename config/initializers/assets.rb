@@ -9,3 +9,9 @@ Rails.application.config.assets.version = '1.0'
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
 # Rails.application.config.assets.precompile += %w( search.js )
+
+Rails.application.config.assets.configure do |sprockets_env|
+  require 'custom_babel_processor'
+  sprockets_env.register_mime_type 'application/ecmascript-6', extensions: ['.es6'], charset: :unicode
+  sprockets_env.register_transformer 'application/ecmascript-6', 'application/javascript', CustomBabelProcessor
+end
